@@ -4,9 +4,12 @@ import { getPokemons, getPokemonByUrl } from "../api/PokemonApi"
 import CategoryList from "../components/CategoryList";
 
 class HomeScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Home'
+    };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             generations: [],
@@ -29,14 +32,20 @@ class HomeScreen extends React.Component {
     }
 
     render() {
+        const { generations, pokemons } = this.state
         return (
             <CategoryList
-                generations={this.state.generations}
-                pokemons={this.state.pokemons}
+                generations={generations}
+                pokemons={pokemons}
+                handleNavigation={this.handleNavigation}
             />
         );
     }
 
+    handleNavigation = (routeName, params) => {
+        const { navigation } = this.props
+        navigation.navigate(routeName, params)
+    }
 
 }
 

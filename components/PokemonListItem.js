@@ -5,9 +5,14 @@ import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'r
 import { capitalize } from '../common/utils/StringUtils'
 
 const PokemonListItem = (props) => {
-    const { name, sprites } = props.data
+    const { data, handleNavigation } = props
+    const { name, sprites } = data
+    const onPress = () => {
+        handleNavigation('Details', data)
+    }
+
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
             <Card>
                 <CardImage
                     style={{height: 120, justifyContent: 'center', alignItems: 'center'}}
@@ -23,28 +28,8 @@ const PokemonListItem = (props) => {
 }
 
 PokemonListItem.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    handleNavigation: PropTypes.func.isRequired
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    image: {
-        flex: 2
-    },
-    title: {
-        flex: 1
-    },
-    metaHeader: {
-        flexDirection: 'row', // 'column'
-        // 'flex-start', 'flex-end', 'center', 'space-around':
-        justifyContent: 'space-between',
-        marginBottom: 10
-    },
-    metaText: {
-        fontSize: 12
-    }
-})
 
 export default PokemonListItem

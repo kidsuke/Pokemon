@@ -2,6 +2,10 @@ import React from "react"
 import {Button, View} from "react-native"
 
 class SettingsScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Settings'
+    };
+
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

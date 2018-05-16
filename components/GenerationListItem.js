@@ -5,7 +5,8 @@ import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'r
 import { capitalize } from '../common/utils/StringUtils'
 
 const GenerationListItem = (props) => {
-    const { name } = props.data
+    const { data, handleNavigation } = props
+    const { name } = data
     return (
         <TouchableOpacity>
             <Card>
@@ -16,7 +17,8 @@ const GenerationListItem = (props) => {
 }
 
 GenerationListItem.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    handleNavigation: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({

@@ -4,15 +4,14 @@ import {SectionList, StyleSheet, Text, View} from 'react-native'
 
 import GenerationListItem from './GenerationListItem'
 import PokemonListItem from "./PokemonListItem";
-import CategoryListItem from "./CategoryListItem"
-
+import CategoryChildList from "./CategoryChildList"
 
 const CategoryList = (props) => {
-    const { generations, pokemons } = props
+    const { generations, pokemons, handleNavigation } = props
     return (
         <SectionList
             style={ styles.container }
-            renderItem={ ({item, index, section}) => CategoryListItem({items: item, itemComponent: section.itemComponent}) }
+            renderItem={ ({item, index, section}) => CategoryChildList({items: item, itemComponent: section.itemComponent, handleNavigation: handleNavigation}) }
             renderSectionHeader={ ({section: {title}}) => <Text style={ styles.header }>{title}</Text> }
             SectionSeparatorComponent={() => <View style={ styles.sectionSeparator }/>}
             sections={[
@@ -26,7 +25,8 @@ const CategoryList = (props) => {
 
 CategoryList.propTypes = {
     generations: PropTypes.array.isRequired,
-    pokemons: PropTypes.array.isRequired
+    pokemons: PropTypes.array.isRequired,
+    handleNavigation: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
