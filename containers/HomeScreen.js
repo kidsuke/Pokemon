@@ -1,6 +1,6 @@
 import React from "react"
 import { getGenerations } from "../api/GameApi"
-import { getPokemons } from "../api/PokemonApi"
+import { getPokemons, getPokemonByUrl } from "../api/PokemonApi"
 import CategoryList from "../components/CategoryList";
 
 class HomeScreen extends React.Component {
@@ -16,19 +16,15 @@ class HomeScreen extends React.Component {
 
     componentDidMount() {
         getGenerations()
-            .then(data => {
-                this.setState({ generations: data.results })
-                console.log(data)
-                console.log(this.state)
-            })
+            .then(response => this.setState({ generations: response.results }))
             .catch(error => console.log(error))
 
         getPokemons()
-            .then(data => {
-                this.setState({ pokemons: data.results })
-                console.log(data)
-                console.log(this.state)
+            .then(response => {
+                const promises = response.results.map(result => getPokemonByUrl(result.url))
+                return Promise.all(promises)
             })
+            .then(pokemons => this.setState({ pokemons: pokemons }))
             .catch(error => console.log(error))
     }
 

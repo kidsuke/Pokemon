@@ -1,39 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-    TouchableOpacity,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+import {TouchableOpacity, StyleSheet, Text, View} from 'react-native'
+import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'react-native-cards';
+import { capitalize } from '../common/utils/StringUtils'
 
 const PokemonListItem = (props) => {
-    const { name } = props.pokemon
+    const { name, sprites } = props.data
     return (
-        <TouchableOpacity
-            style={styles.item}
-        >
-            <View style={styles.metaHeader}>
-                <Text style={styles.metaText}>{name}</Text>
-                <Text style={styles.metaText}>Test</Text>
-            </View>
-            <Text>Test</Text>
+        <TouchableOpacity>
+            <Card>
+                <CardImage
+                    style={{height: 120, justifyContent: 'center', alignItems: 'center'}}
+                    source={{uri: sprites.front_default}}
+                    resizeMode={'contain'}
+                    resizeMethod={'scale'}/>
+                <CardTitle
+                    style={{justifyContent: 'center', alignItems: 'center'}}
+                    title={capitalize(name)}/>
+            </Card>
         </TouchableOpacity>
     )
 }
 
 PokemonListItem.propTypes = {
-    pokemon: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired
 }
 
 const styles = StyleSheet.create({
-    item: {
-        backgroundColor: '#fff',
-        borderColor: '#fff',
-        // borderWidth: StyleSheet.hairlineWidth,
-        borderWidth: 1,
-        marginBottom: 20,
-        padding: 15
+    container: {
+        flex: 1,
+    },
+    image: {
+        flex: 2
+    },
+    title: {
+        flex: 1
     },
     metaHeader: {
         flexDirection: 'row', // 'column'

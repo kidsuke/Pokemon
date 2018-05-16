@@ -5,3 +5,7 @@ export const getPokemons = (limit = 10, offset = 0) => {
     const url = `${config.pokeApiUrl}/pokemon/?limit=${limit}&offset=${offset}`
     return getJson(url)
 }
+
+export const getPokemonByUrl = (url) => {
+    return getJson(url)
+}

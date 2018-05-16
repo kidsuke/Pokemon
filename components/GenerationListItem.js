@@ -1,29 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-    TouchableOpacity,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+import {TouchableOpacity, StyleSheet, Text, View} from 'react-native'
+import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'react-native-cards';
+import { capitalize } from '../common/utils/StringUtils'
 
 const GenerationListItem = (props) => {
-    const { name } = props.generation
+    const { name } = props.data
     return (
-        <TouchableOpacity
-            style={styles.item}
-        >
-            <View style={styles.metaHeader}>
-                <Text style={styles.metaText}>{name}</Text>
-                <Text style={styles.metaText}>Test</Text>
-            </View>
-            <Text>Test</Text>
+        <TouchableOpacity>
+            <Card>
+                <CardTitle title={capitalize(name)}/>
+            </Card>
         </TouchableOpacity>
     )
 }
 
 GenerationListItem.propTypes = {
-    generation: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -32,7 +25,6 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         // borderWidth: StyleSheet.hairlineWidth,
         borderWidth: 1,
-        marginBottom: 20,
         padding: 15
     },
     metaHeader: {
