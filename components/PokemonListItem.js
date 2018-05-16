@@ -7,8 +7,8 @@ import {
     View
 } from 'react-native'
 
-const GenerationListItem = (props) => {
-    const { name } = props.generation
+const PokemonListItem = (props) => {
+    const { name } = props.pokemon
     return (
         <TouchableOpacity
             style={styles.item}
@@ -22,8 +22,8 @@ const GenerationListItem = (props) => {
     )
 }
 
-GenerationListItem.propTypes = {
-    generation: PropTypes.object.isRequired
+PokemonListItem.propTypes = {
+    pokemon: PropTypes.object.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default GenerationListItem
+export default PokemonListItem

@@ -8,12 +8,11 @@ const GenerationList = (props) => {
     const { generations } = props
     return (
         <FlatList
-            style={styles.container}
-            data={generations}
-            renderItem={({ item }) => (
-                <GenerationListItem
-                    name={item.name}
-                />
+            style={ styles.container }
+            horizontal={ true }
+            data={ generations }
+            renderItem={({ generation }) => (
+                <GenerationListItem generation={ generation }/>
             )}
         />
     )
@@ -25,12 +24,8 @@ const styles = StyleSheet.create({
     }
 })
 
-GenerationList.defaultProps = {
-    generations: [{ title: 'yay' }]
-}
-
 GenerationList.propTypes = {
-    generations: PropTypes.arrayOf(PropTypes.shape({})),
+    generations: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 }
 
 export default GenerationList

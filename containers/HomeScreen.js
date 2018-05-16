@@ -1,7 +1,7 @@
 import React from "react"
-import GenerationList from "../components/GenerationList"
 import { getGenerations } from "../api/GameApi"
-import {StyleSheet} from "react-native"
+import { getPokemons } from "../api/PokemonApi"
+import CategoryList from "../components/CategoryList";
 
 class HomeScreen extends React.Component {
 
@@ -10,6 +10,7 @@ class HomeScreen extends React.Component {
 
         this.state = {
             generations: [],
+            pokemons: []
         }
     }
 
@@ -21,12 +22,21 @@ class HomeScreen extends React.Component {
                 console.log(this.state)
             })
             .catch(error => console.log(error))
+
+        getPokemons()
+            .then(data => {
+                this.setState({ pokemons: data.results })
+                console.log(data)
+                console.log(this.state)
+            })
+            .catch(error => console.log(error))
     }
 
     render() {
         return (
-            <GenerationList
+            <CategoryList
                 generations={this.state.generations}
+                pokemons={this.state.pokemons}
             />
         );
     }
