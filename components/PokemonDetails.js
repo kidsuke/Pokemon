@@ -1,15 +1,18 @@
 import React from "react"
 import {Image, StyleSheet, Text, View} from "react-native"
+import { capitalize } from '../common/utils/StringUtils'
 import PropTypes from 'prop-types';
 
 const PokemonDetails = (props) => {
     const { data } = props
-    const { name, sprites } = data
+    const { name, weight, height, sprites } = data
 
     return (
         <View style={styles.container}>
             {renderSprites(sprites)}
-            <Text style={styles.details}>{name}</Text>
+            <Text style={styles.details}>Name: {capitalize(name)}</Text>
+            <Text style={styles.details}>Weight: {weight}</Text>
+            <Text style={styles.details}>Height: {height}</Text>
         </View>
     )
 }
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#6bc45e'
     },
     details: {
-        backgroundColor: '#c4615e'
+        margin: 5
     }
 })
 
