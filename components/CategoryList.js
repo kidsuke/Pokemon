@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {RefreshControl, SectionList, StyleSheet, Text, View} from 'react-native'
+import {SectionList, StyleSheet, Text, View} from 'react-native'
 
 import GenerationListItem from './GenerationListItem'
 import PokemonListItem from "./PokemonListItem";
@@ -19,12 +19,8 @@ const CategoryList = (props) => {
                 {title: 'Pokemons', itemComponent: PokemonListItem, data: [pokemons]}
             ]}
             keyExtractor={ (item, index) => item + index }
-            refreshControl={
-                <RefreshControl
-                    refreshing={isLoading}
-                    onRefresh={handleRefresh}
-                />
-            }
+            refreshing={isLoading}
+            onRefresh={handleRefresh}
         />
     )
 }
@@ -39,7 +35,7 @@ CategoryList.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20
+        margin: 10
     },
     header: {
         fontSize: 20,
