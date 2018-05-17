@@ -1,6 +1,8 @@
 import React from "react"
-import { getGenerations } from "../api/GameApi"
-import { getPokemons, getPokemonByUrl } from "../api/PokemonApi"
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { getPokemonsAction } from "../actions/pokemon-actions"
+import { getGenerationsAction } from "../actions/game-actions"
 import CategoryList from "../components/CategoryList";
 
 class HomeScreen extends React.Component {
@@ -8,36 +10,25 @@ class HomeScreen extends React.Component {
         title: 'Home'
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            generations: [],
-            pokemons: []
-        }
+    componentWillMount() {
+        this.refresh()
     }
 
-    componentDidMount() {
-        getGenerations()
-            .then(response => this.setState({ generations: response.results }))
-            .catch(error => console.log(error))
-
+    refresh = () => {
+        const {getPokemons, getGenerations} = this.props
         getPokemons()
-            .then(response => {
-                const promises = response.results.map(result => getPokemonByUrl(result.url))
-                return Promise.all(promises)
-            })
-            .then(pokemons => this.setState({ pokemons: pokemons }))
-            .catch(error => console.log(error))
+        getGenerations()
     }
 
     render() {
-        const { generations, pokemons } = this.state
+        const { generations, pokemons, isLoading } = this.props
         return (
             <CategoryList
                 generations={generations}
                 pokemons={pokemons}
                 handleNavigation={this.handleNavigation}
+                handleRefresh={this.refresh}
+                isLoading={isLoading}
             />
         );
     }
@@ -49,4 +40,19 @@ class HomeScreen extends React.Component {
 
 }
 
-export default HomeScreen
+// Together with connect(), expose required parts of the Redux store as props.
+const mapStateToProps = ({ pokemonState, gameState }) => ({
+    pokemons: pokemonState.pokemons,
+    generations: gameState.generations,
+    isLoading: pokemonState.isLoading && gameState.isLoading
+})
+
+// Together with connect(), have the action creators bound to dispatch and exposed as props.
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getPokemons: getPokemonsAction,
+        getGenerations: getGenerationsAction
+    }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {SectionList, StyleSheet, Text, View} from 'react-native'
+import {RefreshControl, SectionList, StyleSheet, Text, View} from 'react-native'
 
 import GenerationListItem from './GenerationListItem'
 import PokemonListItem from "./PokemonListItem";
 import CategoryChildList from "./CategoryChildList"
 
 const CategoryList = (props) => {
-    const { generations, pokemons, handleNavigation } = props
+    const { generations, pokemons, handleNavigation, handleRefresh, isLoading } = props
     return (
         <SectionList
             style={ styles.container }
@@ -19,6 +19,12 @@ const CategoryList = (props) => {
                 {title: 'Pokemons', itemComponent: PokemonListItem, data: [pokemons]}
             ]}
             keyExtractor={ (item, index) => item + index }
+            refreshControl={
+                <RefreshControl
+                    refreshing={isLoading}
+                    onRefresh={handleRefresh}
+                />
+            }
         />
     )
 }
@@ -26,7 +32,9 @@ const CategoryList = (props) => {
 CategoryList.propTypes = {
     generations: PropTypes.array.isRequired,
     pokemons: PropTypes.array.isRequired,
-    handleNavigation: PropTypes.func.isRequired
+    handleNavigation: PropTypes.func.isRequired,
+    handleRefresh: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired
 }
 
 const styles = StyleSheet.create({
